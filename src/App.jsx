@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Store from './Logic/Store';
 import { System } from './Logic/System';
@@ -23,35 +23,34 @@ const LogContainer = styled.div`
 
 const App = observer(() => {
     let systemRef = useRef();
+    // useEffect(() => {
+    //     systemRef.current = new System(10, 5, 3, 3);
+    //     Store.update(systemRef.current);
+    //     //systemRef.current.calendar.getAllEvents();
+    // }, []);
+    const [start, setStart] = useState(0);
+
     useEffect(() => {
-        systemRef.current = new System(5, 5, 3, 3);
-        Store.update(systemRef.current);
+        if (Store.initialParametrs.started) {
+            console.log(Store.initialParametrs);
+            systemRef.current = new System(
+                Store.initialParametrs.bidsNum,
+                Store.initialParametrs.sourcesNum,
+                Store.initialParametrs.devicesNum,
+                Store.initialParametrs.buffersNum
+            );
+            Store.update(systemRef.current);
+        }
+        console.log('useEffect');
         //systemRef.current.calendar.getAllEvents();
-    }, []);
+    }, [start]);
 
     return (
         <>
-            {/* <div>
-                current time {Store.systemTime} bidsProduced{' '}
-                {Store.bidsProduced}
-            </div> */}
-
-            {/* <button
-                onClick={() => {
-                    systemRef.current?.handleNextEvent();
-                    Store.update(systemRef.current);
-                }}
-                disabled={Store.endModulating}
-            >
-                next step
-            </button>
-            <div>{`current time:  ${Store.systemTime.toFixed(3)}`}</div>
-            <Charts /> */}
+            <StartOptions setStart={setStart} start={start} />
             <StepMode systemRef={systemRef} />
 
-            <StartOptions />
-
-            <LogContainer>
+            {/* <LogContainer>
                 <div>
                     <Calendar />
                     <Sources />
@@ -62,7 +61,7 @@ const App = observer(() => {
                 <div>
                     <Logger />
                 </div>
-            </LogContainer>
+            </LogContainer> */}
         </>
     );
 });

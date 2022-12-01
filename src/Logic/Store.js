@@ -21,14 +21,19 @@ class Store {
     systemParams = { sourcesNum: 0, devicesNum: 0, buffersNum: 0 };
 
     bidsGenerated = 0;
+    bidsProduced = 0;
     timeLineLength = 0;
     endModulating = false;
 
     initialParametrs = {
+        started: false,
         mode: 'step',
         sourcesNum: 0,
         buffersNum: 0,
         devicesNum: 0,
+        bidsNum: 0,
+        lambda: 1,
+        produceTimeInterval: { start: 0, end: 10 },
     };
 
     constructor() {
@@ -69,6 +74,8 @@ class Store {
         this.endModulating = system.endModulatingFlag;
         // console.log(this.bidsProduced, this.systemTime);
         this.bidsGenerated = system.generatedBidsNum;
+
+        this.bidsProduced = system.producedBidsNum;
     }
 }
 export default new Store();

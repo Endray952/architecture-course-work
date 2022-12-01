@@ -6,6 +6,12 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 const StepMode = observer(({ systemRef }) => {
+    if (
+        !Store.initialParametrs.started ||
+        Store.initialParametrs.mode !== 'step'
+    ) {
+        return null;
+    }
     return (
         <>
             <button
@@ -17,7 +23,7 @@ const StepMode = observer(({ systemRef }) => {
             >
                 next step
             </button>
-            <div ley={uuid()}>{`Текущее время:  ${Store.systemTime.toFixed(
+            <div key={uuid()}>{`Текущее время:  ${Store.systemTime.toFixed(
                 3
             )},  Заявок обработано:  ${
                 Store.bidsProduced

@@ -14,7 +14,7 @@ export class System {
     bufferManager;
     sourceManager;
     logger;
-    totalBidsNum;
+
     producedBidsNum = 0;
     mode;
     currentEvent;
@@ -28,7 +28,7 @@ export class System {
         this.totalGenerateBidsNum = totatlBidsNum;
 
         this.systemParams = { sourcesNum, devicesNum, buffersNum };
-        this.totalBidsNum = totatlBidsNum;
+
         this.calendar = new Calendar();
         this.deviceManager = new DeviceManager(devicesNum);
         this.sourceManager = new SourceManager(sourcesNum);
@@ -46,7 +46,7 @@ export class System {
         }
         this.currentEvent = nextEvent;
 
-        if (this.generatedBidsNum === this.totalGenerateBidsNum) {
+        if (this.generatedBidsNum >= this.totalGenerateBidsNum) {
             this.stopModulatingFlag = true;
         }
 
