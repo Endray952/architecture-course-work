@@ -26,7 +26,8 @@ export class Logger {
             this.sourcesLog.set(sourceId, {
                 numRefused: 0,
                 numProduced: 0,
-                timeInDevice: [],
+                startTimeInDevice: [],
+                endTimeInDevice: [],
                 startTimeInBuffer: [],
                 endTimeInBuffer: [],
             });
@@ -55,7 +56,9 @@ export class Logger {
 
         //sourcesLog add time in device for source
         const currentSourceLog = this.sourcesLog.get(sourceId);
-        currentSourceLog.timeInDevice.push(handlingTime);
+        //currentSourceLog.timeInDevice.push(handlingTime);
+        currentSourceLog.startTimeInDevice.push(time);
+        currentSourceLog.endTimeInDevice.push(time + handlingTime);
         currentSourceLog.numProduced++;
         this.sourcesLog.set(sourceId, currentSourceLog);
     }
@@ -133,7 +136,8 @@ export class Logger {
             this.sourcesLog.set(sourceId, {
                 numRefused: 0,
                 numProduced: 0,
-                timeInDevice: [],
+                startTimeInDevice: [],
+                endTimeInDevice: [],
                 startTimeInBuffer: [],
                 endTimeInBuffer: [],
             });
