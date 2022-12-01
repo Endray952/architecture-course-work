@@ -2,11 +2,11 @@ import { Source } from './Source';
 
 export class SourceManager {
     #sources;
-    constructor(sourcesNum) {
+    constructor(sourcesNum, lambda) {
         this.#sources = new Map();
         for (let i = 0; i < sourcesNum; i++) {
             const id = i + 1;
-            this.#sources.set(id, new Source(id));
+            this.#sources.set(id, new Source(id, lambda));
         }
     }
     getNextBid(sourceId) {

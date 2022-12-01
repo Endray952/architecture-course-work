@@ -3,11 +3,11 @@ import { Device } from './Device';
 export class DeviceManager {
     #devices;
     #freeDevices;
-    constructor(deviceNumber) {
+    constructor(deviceNumber, startTime, endTime) {
         this.#devices = new Map();
         for (let index = 0; index < deviceNumber; index++) {
             const id = index + 1;
-            this.#devices.set(id, new Device(id));
+            this.#devices.set(id, new Device(id, startTime, endTime));
         }
         this.#freeDevices = new Map(this.#devices);
     }

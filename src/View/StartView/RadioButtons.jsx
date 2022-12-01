@@ -14,7 +14,6 @@ const RadioButtons = observer(() => {
         //Store.initialParametrs.mode = selectedMode;
         //console.log(selectedMode, Store.initialParametrs);
         Store.initialParametrs.mode = e.target.value;
-        console.log(Store.initialParametrs);
     };
     return (
         <ColumnPair>

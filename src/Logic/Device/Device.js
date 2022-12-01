@@ -2,18 +2,11 @@ export class Device {
     #id;
     //#isBusy = false;
     #handlingTime;
-    constructor(id) {
+    constructor(id, startTime, endTime) {
         this.#id = id;
-        this.#produceHandlingTime();
+        //this.#produceHandlingTime();
+        this.#handlingTime = startTime + Math.random() * (endTime - startTime);
     }
-
-    // setBusy() {
-    //     this.#isBusy = true;
-    // }
-
-    // setFree() {
-    //     this.#isBusy = false;
-    // }
 
     #produceHandlingTime() {
         this.#handlingTime = 4;

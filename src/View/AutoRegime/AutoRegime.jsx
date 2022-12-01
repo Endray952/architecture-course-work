@@ -41,14 +41,16 @@ const AutoRegime = observer(() => {
         return [
             logInfo.sourceId,
             logInfo.value.numProduced,
-            (logInfo.value.numRefused / logInfo.value.numProduced).toFixed(2),
-            Tbuffer
+            (logInfo.value.numRefused / logInfo.value.numProduced).toFixed(3),
+            Tbuffer && Tdevice
                 ? (Tbuffer / nBuf + Tdevice / nDevice).toFixed(2)
-                : (Tdevice / nDevice).toFixed(2),
-            (Tbuffer / nBuf || 0).toFixed(2),
-            (Tdevice / nDevice).toFixed(2),
+                : 0,
+            Tbuffer ? (Tbuffer / nBuf || 0).toFixed(2) : 0,
+            Tdevice ? (Tdevice / nDevice).toFixed(2) : 0,
             (TBufSquare / nBuf - (Tbuffer / nBuf) ** 2 || 0).toFixed(2),
-            (TDeviceSquare / nDevice - (Tdevice / nDevice) ** 2).toFixed(2),
+            (TDeviceSquare / nDevice - (Tdevice / nDevice) ** 2 || 0).toFixed(
+                2
+            ),
         ];
     });
     return <Table columns={sourcesColumns} rows={rows} cellWidth={150} />;

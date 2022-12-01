@@ -18,7 +18,7 @@ const StartOptions = observer(({ start, setStart }) => {
     const [errorText, setErrorText] = useState('');
     const handleStart = () => {
         const validateText = validateData();
-        console.log(validateText);
+        // console.log(validateText);
         if (validateText === 'valid') {
             setErrorText('');
             Store.initialParametrs.started = true;

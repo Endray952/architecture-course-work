@@ -26,14 +26,22 @@ export class System {
     generatedBidsNum = 0;
     totalGenerateBidsNum;
     systemParams = { sourcesNum: 0, devicesNum: 0, buffersNum: 0 };
-    constructor(totatlBidsNum, sourcesNum, devicesNum, buffersNum) {
+    constructor(
+        totatlBidsNum,
+        sourcesNum,
+        devicesNum,
+        buffersNum,
+        lambda,
+        startTime,
+        endTime
+    ) {
         this.totalGenerateBidsNum = totatlBidsNum;
 
         this.systemParams = { sourcesNum, devicesNum, buffersNum };
 
         this.calendar = new Calendar();
-        this.deviceManager = new DeviceManager(devicesNum);
-        this.sourceManager = new SourceManager(sourcesNum);
+        this.deviceManager = new DeviceManager(devicesNum, startTime, endTime);
+        this.sourceManager = new SourceManager(sourcesNum, lambda);
         this.bufferManager = new BufferManager(buffersNum);
         this.logger = new Logger();
         this.setInitialBids();
@@ -122,7 +130,7 @@ export class System {
                 event.id,
                 event.bidNum
             );
-            if (!bufferId) console.log(bufferId);
+            // if (!bufferId) console.log(bufferId);
             this.logger.setInBuffer(
                 event.id,
                 event.bidNum,
@@ -153,16 +161,6 @@ export class System {
         const bidFromBuffer = this.bufferManager.getNextBid();
 
         const device = this.deviceManager.getDeviceToProduce();
-
-        if (!device) {
-            //debugger;
-            console.log(
-                'device undefined',
-                device,
-                'eventInfo',
-                nextEvent.deviceId
-            );
-        }
 
         this.logger.getBidFromBuffer(
             bidFromBuffer.sourceId,

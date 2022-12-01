@@ -19,12 +19,6 @@ const StepMode = observer(({ systemRef }) => {
                     systemRef.current?.handleNextEvent();
                     Store.update(systemRef.current);
                     //console.log(JSON.stringify(Store.logger.sourceLog));
-                    console.log(
-                        Store.logger.sourceLog.map((logInfo) => {
-                            console.log(logInfo);
-                            return logInfo;
-                        })
-                    );
                 }}
                 disabled={Store.endModulating}
             >

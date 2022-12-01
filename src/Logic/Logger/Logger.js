@@ -59,7 +59,7 @@ export class Logger {
         //currentSourceLog.timeInDevice.push(handlingTime);
         currentSourceLog.startTimeInDevice.push(time);
         currentSourceLog.endTimeInDevice.push(time + handlingTime);
-        currentSourceLog.numProduced++;
+        //currentSourceLog.numProduced++;
         this.sourcesLog.set(sourceId, currentSourceLog);
     }
 

@@ -4,8 +4,9 @@ export class Source {
     #id;
     #lambda = 0.25;
     #generatedBidsNum = 0;
-    constructor(id) {
+    constructor(id, lambda) {
         this.#id = id;
+        this.#lambda = lambda;
     }
 
     /**

@@ -51,7 +51,7 @@ const Inputs = () => {
             </ColumnPair>
             <ColumnPair>
                 <input
-                    placeholder='Параметр лямюда: 0.25'
+                    placeholder='Параметр лямбда: 0.25'
                     type='number'
                     onChange={(e) => {
                         Store.initialParametrs.lambda = +e.target.value;

@@ -36,12 +36,15 @@ const App = observer(() => {
             return;
         }
         if (Store.initialParametrs.mode === 'step') {
-            console.log(Store.initialParametrs);
+            // console.log(Store.initialParametrs);
             systemRef.current = new System(
                 Store.initialParametrs.bidsNum,
                 Store.initialParametrs.sourcesNum,
                 Store.initialParametrs.devicesNum,
-                Store.initialParametrs.buffersNum
+                Store.initialParametrs.buffersNum,
+                Store.initialParametrs.lambda,
+                Store.initialParametrs.produceTimeInterval.start,
+                Store.initialParametrs.produceTimeInterval.end
             );
             Store.update(systemRef.current);
         } else if (Store.initialParametrs.mode === 'auto') {
@@ -49,11 +52,14 @@ const App = observer(() => {
                 Store.initialParametrs.bidsNum,
                 Store.initialParametrs.sourcesNum,
                 Store.initialParametrs.devicesNum,
-                Store.initialParametrs.buffersNum
+                Store.initialParametrs.buffersNum,
+                Store.initialParametrs.lambda,
+                Store.initialParametrs.produceTimeInterval.start,
+                Store.initialParametrs.produceTimeInterval.end
             );
             Store.update(systemRef.current);
             while (!systemRef.current?.endModulatingFlag) {
-                console.log(systemRef.current);
+                //  console.log(systemRef.current);
                 systemRef.current?.handleNextEvent();
             }
             systemRef.current?.handleNextEvent();
@@ -69,7 +75,7 @@ const App = observer(() => {
             <StartOptions setStart={setStart} start={start} />
             <StepMode systemRef={systemRef} />
             <AutoRegime />
-            <LogContainer>
+            {/* <LogContainer>
                 <div>
                     <Calendar />
                     <Sources />
@@ -80,7 +86,7 @@ const App = observer(() => {
                 <div>
                     <Logger />
                 </div>
-            </LogContainer>
+            </LogContainer> */}
         </>
     );
 });
