@@ -10,8 +10,8 @@ const SourceBids = observer(({ currentSource, yOffset }) => {
             <>
                 <Text
                     text={`${logInfo.bidNum}`}
-                    x={logInfo.time * 100 + 10}
-                    y={yOffset - 15}
+                    x={logInfo.time * 100 - 5}
+                    y={yOffset - 25}
                 />
                 <Rect
                     x={logInfo.time * 100 - 2.5}

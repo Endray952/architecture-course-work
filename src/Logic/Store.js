@@ -19,6 +19,8 @@ class Store {
     };
 
     systemParams = { sourcesNum: 0, devicesNum: 0, buffersNum: 0 };
+
+    timeLineLength = 0;
     constructor() {
         makeAutoObservable(this);
         // this.system = system;
@@ -49,6 +51,9 @@ class Store {
 
         this.viewLogger = system.logger.getViewLogger();
         //console.log(this.viewLogger);
+        //console.log(JSON.stringify(this.calendar));
+
+        this.timeLineLength = this.calendar[0].time * 100;
     }
 }
 export default new Store();

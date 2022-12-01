@@ -58,10 +58,25 @@ const Charts = observer(() => {
                             Store.systemTime * 100,
                             800,
                         ]}
-                        stroke={'rgba(132, 123, 123, 0.5)'}
+                        stroke={'rgba(132, 123, 123, 0.7)'}
                         strokeWidth={2}
                     />
-
+                    <Line
+                        x={0}
+                        y={0}
+                        key={uuid()}
+                        points={[
+                            Store.calendar[Store.calendar.length - 1]?.time *
+                                100,
+                            0,
+                            Store.calendar[Store.calendar.length - 1]?.time *
+                                100,
+                            800,
+                        ]}
+                        stroke={'rgba(107, 218, 63, 0.7)'}
+                        dash={[25, 10]}
+                        strokeWidth={2}
+                    />
                     {/* <Rect width={100} height={100} x={100} y={100} fill={'black'}/> */}
                 </Layer>
             </Stage>
