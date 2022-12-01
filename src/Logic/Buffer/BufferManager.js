@@ -30,18 +30,18 @@ export class BufferManager {
      * @returns {buffer}
      */
     bufferizateBid(sourceId, bidNum) {
-        let freeBufferToBufferizateId = [...this.#freeBuffers.buffersMap.keys()]
-            .sort()
-            .find((item) => {
-                if (this.#freeBuffers.index <= this.#buffersNumber) {
-                    return item >= this.#freeBuffers.index;
-                } else {
-                    return item;
-                }
-            });
-
-        if (++this.#freeBuffers.index > this.#buffersNumber) {
-            this.#freeBuffers.index = 1;
+        const freeBuffersArray = [
+            ...this.#freeBuffers.buffersMap.keys(),
+        ].sort();
+        let freeBufferToBufferizateId = null;
+        while (true) {
+            if (freeBuffersArray.includes(this.#freeBuffers.index)) {
+                freeBufferToBufferizateId = this.#freeBuffers.index;
+                break;
+            }
+            if (++this.#freeBuffers.index > this.#buffersNumber) {
+                this.#freeBuffers.index = 1;
+            }
         }
 
         this.#freeBuffers.buffersMap.delete(freeBufferToBufferizateId);
@@ -51,7 +51,7 @@ export class BufferManager {
             sourceId,
             bidNum,
         });
-        //this.#bufferedBids.sort((bid_1, bid_2) => this.#bidSort(bid_1, bid_2));
+
         this.#bufferedBids.sort(
             (bid_1, bid_2) =>
                 -(bid_1.sourceId - bid_2.sourceId === 0
