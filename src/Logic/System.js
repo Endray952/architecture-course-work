@@ -19,11 +19,15 @@ export class System {
     mode;
     currentEvent;
     stopModulatingFlag = false;
+    endModulatingFlag = false;
 
+    generatedBidsNum = 0;
+    totalGenerateBidsNum;
     systemParams = { sourcesNum: 0, devicesNum: 0, buffersNum: 0 };
-    constructor(mode, totatlBidsNum, sourcesNum, devicesNum, buffersNum) {
-        this.systemParams = { sourcesNum, devicesNum, buffersNum };
+    constructor(totatlBidsNum, sourcesNum, devicesNum, buffersNum) {
+        this.totalGenerateBidsNum = totatlBidsNum;
 
+        this.systemParams = { sourcesNum, devicesNum, buffersNum };
         this.totalBidsNum = totatlBidsNum;
         this.calendar = new Calendar();
         this.deviceManager = new DeviceManager(devicesNum);
@@ -37,20 +41,20 @@ export class System {
     handleNextEvent() {
         const nextEvent = this.calendar.getNextEvent();
         if (!nextEvent) {
-            this.end_modulating();
+            this.endModulatingFlag = true;
             return;
         }
         this.currentEvent = nextEvent;
 
+        if (this.generatedBidsNum === this.totalGenerateBidsNum) {
+            this.stopModulatingFlag = true;
+        }
+
         if (nextEvent.type === NEW_BID) {
             this.handleNewBid(nextEvent);
         } else {
-            if (++this.producedBidsNum === this.totalBidsNum) {
-                this.stopModulatingFlag = true;
-            }
-            //if (nextEvent.type !== NEW_BID) {
+            ++this.producedBidsNum;
             this.handleFreeDevice(nextEvent);
-            // }
         }
     }
 
@@ -60,6 +64,7 @@ export class System {
             const nextBid = this.sourceManager.getNextBid(event.id);
             this.calendar.setNewEvent(nextBid);
             this.logger.newBid(nextBid.id, nextBid.bidNum, nextBid.time);
+            this.generatedBidsNum++;
         }
 
         if (!this.deviceManager.isAllDevicesBusy()) {
@@ -190,6 +195,7 @@ export class System {
         bids.forEach((bid) => {
             this.calendar.setNewEvent(bid);
             this.logger.newBid(bid.id, bid.bidNum, bid.time);
+            this.generatedBidsNum++;
         });
     }
 }

@@ -20,7 +20,17 @@ class Store {
 
     systemParams = { sourcesNum: 0, devicesNum: 0, buffersNum: 0 };
 
+    bidsGenerated = 0;
     timeLineLength = 0;
+    endModulating = false;
+
+    initialParametrs = {
+        mode: 'step',
+        sourcesNum: 0,
+        buffersNum: 0,
+        devicesNum: 0,
+    };
+
     constructor() {
         makeAutoObservable(this);
         // this.system = system;
@@ -55,6 +65,10 @@ class Store {
 
         this.timeLineLength =
             this.calendar[0]?.time * 100 || this.timeLineLength;
+
+        this.endModulating = system.endModulatingFlag;
+        // console.log(this.bidsProduced, this.systemTime);
+        this.bidsGenerated = system.generatedBidsNum;
     }
 }
 export default new Store();

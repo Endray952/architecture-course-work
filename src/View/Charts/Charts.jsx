@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Layer, Line, Rect, Stage } from 'react-konva';
+import { Layer, Line, Stage } from 'react-konva';
 import styled from 'styled-components';
 import Store from '../../Logic/Store';
 import { v4 as uuid } from 'uuid';

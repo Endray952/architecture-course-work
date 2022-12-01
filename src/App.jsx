@@ -6,11 +6,13 @@ import { System } from './Logic/System';
 import BufferedBids from './View/BufferedBids';
 import Calendar from './View/Calendar';
 import Charts from './View/Charts/Charts';
+import StepMode from './View/Charts/StepMode';
 import Devices from './View/Devices';
 import FreeBuffers from './View/FreeBuffers';
 import Logger from './View/Logger/Logger';
 
 import Sources from './View/Sources';
+import StartOptions from './View/StartView/StartOptions';
 
 //const system = new System(null, 10, 5, 3, 5);
 
@@ -22,28 +24,33 @@ const LogContainer = styled.div`
 const App = observer(() => {
     let systemRef = useRef();
     useEffect(() => {
-        systemRef.current = new System(null, 5, 5, 3, 3);
+        systemRef.current = new System(5, 5, 3, 3);
         Store.update(systemRef.current);
         //systemRef.current.calendar.getAllEvents();
     }, []);
 
     return (
         <>
-            <div>
+            {/* <div>
                 current time {Store.systemTime} bidsProduced{' '}
                 {Store.bidsProduced}
-            </div>
+            </div> */}
 
-            <button
+            {/* <button
                 onClick={() => {
                     systemRef.current?.handleNextEvent();
                     Store.update(systemRef.current);
                 }}
+                disabled={Store.endModulating}
             >
                 next step
             </button>
             <div>{`current time:  ${Store.systemTime.toFixed(3)}`}</div>
-            <Charts />
+            <Charts /> */}
+            <StepMode systemRef={systemRef} />
+
+            <StartOptions />
+
             <LogContainer>
                 <div>
                     <Calendar />
