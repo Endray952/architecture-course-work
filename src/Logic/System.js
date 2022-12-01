@@ -42,7 +42,7 @@ export class System {
         }
         this.currentEvent = nextEvent;
 
-        if (nextEvent.type === NEW_BID && !this.stopModulatingFlag) {
+        if (nextEvent.type === NEW_BID) {
             this.handleNewBid(nextEvent);
         } else {
             if (++this.producedBidsNum === this.totalBidsNum) {
@@ -55,10 +55,12 @@ export class System {
     }
 
     handleNewBid(event) {
-        const nextBid = this.sourceManager.getNextBid(event.id);
-
-        this.calendar.setNewEvent(nextBid);
-        this.logger.newBid(nextBid.id, nextBid.bidNum, nextBid.time);
+        //Stop adding new bids
+        if (!this.stopModulatingFlag) {
+            const nextBid = this.sourceManager.getNextBid(event.id);
+            this.calendar.setNewEvent(nextBid);
+            this.logger.newBid(nextBid.id, nextBid.bidNum, nextBid.time);
+        }
 
         if (!this.deviceManager.isAllDevicesBusy()) {
             const device = this.deviceManager.getDeviceToProduce();
