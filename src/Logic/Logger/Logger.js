@@ -60,9 +60,16 @@ export class Logger {
         this.sourcesLog.set(sourceId, currentSourceLog);
     }
 
-    setDeny(sourceId, bidNum, time, bufferId) {
+    setDenyFromBuffer(
+        sourceIdOld,
+        bidNumOld,
+        time,
+        bufferId,
+        sourceIdNew,
+        bidNumNew
+    ) {
         //auto
-        const currentSourceLog = this.sourcesLog.get(sourceId);
+        const currentSourceLog = this.sourcesLog.get(sourceIdOld);
         currentSourceLog.numRefused++;
         if (
             currentSourceLog.startTimeInBuffer.length >
@@ -70,19 +77,53 @@ export class Logger {
         ) {
             currentSourceLog.endTimeInBuffer.push(time);
         }
-        this.sourcesLog.set(sourceId, currentSourceLog);
+        this.sourcesLog.set(sourceIdOld, currentSourceLog);
 
         //view
-        let currentBuffer = this.bufferViewLog.get(bufferId);
-        currentBuffer = currentBuffer.map((buf) => {
-            if (buf.sourceId === sourceId && buf.bidNum === bidNum) {
-                buf.endTime = time;
+        // let currentBuffer = this.bufferViewLog.get(bufferId);
+        // currentBuffer = currentBuffer.map((buf) => {
+        //     if (buf.sourceId === sourceIdOld && buf.bidNum === bidNumOld) {
+        //         buf.endTime = time;
+        //     }
+        //     return buf;
+        // });
+        // this.bufferViewLog.set(bufferId, currentBuffer);
+
+        //SEt end time for old bid in buffer
+        const currentBufLog = this.bufferViewLog.get(bufferId);
+        currentBufLog.find((logInfo, index, array) => {
+            if (
+                logInfo.sourceId === sourceIdOld &&
+                logInfo.bidNum === bidNumOld
+            ) {
+                array[index].endTime = time;
+                return true;
             }
-            return buf;
+            return false;
         });
-        this.bufferViewLog.set(bufferId, currentBuffer);
+        this.bufferViewLog.set(bufferId, currentBufLog);
+
+        //SEt start time for new bid in buffer
+        const currentBufLogNew = this.bufferViewLog.get(bufferId);
+        currentBufLogNew.push({
+            sourceId: sourceIdNew,
+            bidNum: bidNumNew,
+            startTime: time,
+        });
+        this.bufferViewLog.set(bufferId, currentBufLog);
 
         //denyViewLog
+        this.denyViewLog.push({
+            sourceId: sourceIdOld,
+            bidNum: bidNumOld,
+            time,
+        });
+    }
+
+    setDenyFromSource(sourceId, bidNum, time) {
+        const currentSourceLog = this.sourcesLog.get(sourceId);
+        currentSourceLog.numRefused++;
+        this.sourcesLog.set(sourceId, currentSourceLog);
         this.denyViewLog.push({ sourceId, bidNum, time });
     }
 
@@ -121,10 +162,20 @@ export class Logger {
         );
     }
 
-    getBidFromBuffer(sourceId, time) {
+    getBidFromBuffer(sourceId, time, bufferId, bidNum) {
         const source = this.sourcesLog.get(sourceId);
         source.endTimeInBuffer.push(time);
         this.sourcesLog.set(sourceId, source);
+
+        const currentBufLog = this.bufferViewLog.get(bufferId);
+        currentBufLog.find((logInfo, index, array) => {
+            if (logInfo.sourceId === sourceId && logInfo.bidNum === bidNum) {
+                array[index].endTime = time;
+                return true;
+            }
+            return false;
+        });
+        this.bufferViewLog.set(bufferId, currentBufLog);
     }
 
     getLogger() {

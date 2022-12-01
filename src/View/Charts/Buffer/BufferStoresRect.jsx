@@ -5,10 +5,10 @@ import { v4 as uuid } from 'uuid';
 import Store from '../../../Logic/Store';
 
 const BufferStoresRect = observer(({ currentBuffer, yOffset }) => {
-    console.log(JSON.stringify(currentBuffer.value));
+    // console.log(JSON.stringify(currentBuffer.value));
     //console.log(yOffset);
     return currentBuffer.value.map((logInfo) => {
-        console.log(JSON.stringify(currentBuffer.value));
+        //console.log(JSON.stringify(currentBuffer.value));
         const width = logInfo.endTime
             ? (logInfo.endTime - logInfo.startTime) * 100
             : (Store.systemTime - logInfo.startTime) * 100;

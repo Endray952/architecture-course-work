@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 const DeviceProduceRect = observer(({ currentDevice, yOffset }) => {
     //console.log(JSON.stringify(currentSource.value));
-    console.log(yOffset);
+    //console.log(yOffset);
     return currentDevice.value.map((logInfo) => {
         return (
             <>

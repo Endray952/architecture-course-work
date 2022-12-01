@@ -6,7 +6,7 @@ import Store from '../../../Logic/Store';
 import BufferChart from './BufferChart';
 
 const BuffersLog = observer(({ topYOffset, everyItemYOffset }) => {
-    console.log(JSON.stringify(Store.viewLogger.bufferViewLog));
+    //console.log(JSON.stringify(Store.viewLogger.bufferViewLog));
     return Store.viewLogger.bufferViewLog.map((value, index) => {
         return (
             <BufferChart

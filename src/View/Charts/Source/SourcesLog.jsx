@@ -6,7 +6,7 @@ import Store from '../../../Logic/Store';
 import SourceChart from './SourceChart';
 
 const SourcesLog = observer(({ topYOffset, everyItemYOffset }) => {
-    console.log(Store.viewLogger.sourceBidsLogView);
+    //(Store.viewLogger.sourceBidsLogView);
     return Store.viewLogger.sourceBidsLogView.map((value, index) => {
         return (
             <SourceChart

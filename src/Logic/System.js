@@ -85,17 +85,32 @@ export class System {
                 event.id,
                 event.bidNum
             );
-            this.logger.setDeny(
-                denyedBidAndBufferId.sourceId,
-                denyedBidAndBufferId.bidNum,
-                this.calendar.getCurrentTime(),
-                denyedBidAndBufferId.bufferId
-            );
+            console.log('buffer full', denyedBidAndBufferId);
+            if (
+                denyedBidAndBufferId.sourceId === event.id &&
+                denyedBidAndBufferId.bidNum === event.bidNum
+            ) {
+                this.logger.setDenyFromSource(
+                    denyedBidAndBufferId.sourceId,
+                    denyedBidAndBufferId.bidNum,
+                    this.calendar.getCurrentTime()
+                );
+            } else {
+                this.logger.setDenyFromBuffer(
+                    denyedBidAndBufferId.sourceId,
+                    denyedBidAndBufferId.bidNum,
+                    this.calendar.getCurrentTime(),
+                    denyedBidAndBufferId.bufferId,
+                    event.id,
+                    event.bidNum
+                );
+            }
         } else {
             const bufferId = this.bufferManager.bufferizateBid(
                 event.id,
                 event.bidNum
             );
+            if (!bufferId) console.log(bufferId);
             this.logger.setInBuffer(
                 event.id,
                 event.bidNum,
@@ -123,18 +138,20 @@ export class System {
 
         //set bid from buffer to device
 
-        const nextBid = this.bufferManager.getNextBid();
+        const bidFromBuffer = this.bufferManager.getNextBid();
 
         const device = this.deviceManager.getDeviceToProduce();
         this.logger.getBidFromBuffer(
-            nextBid.sourceId,
-            this.calendar.getCurrentTime()
+            bidFromBuffer.sourceId,
+            this.calendar.getCurrentTime(),
+            bidFromBuffer.bufferId,
+            bidFromBuffer.bidNum
         );
 
         this.logger.setDeviceProduce(
             device.getId(),
-            nextBid.sourceId,
-            nextBid.bidNum,
+            bidFromBuffer.sourceId,
+            bidFromBuffer.bidNum,
             this.calendar.getCurrentTime(),
             device.getHandingTime()
         );
@@ -142,8 +159,8 @@ export class System {
         this.calendar.setNewEvent({
             type: FREE_DEVICE,
             deviceId: device.getId(),
-            sourceId: nextBid.sourceId,
-            bidNum: nextBid.bidNum,
+            sourceId: bidFromBuffer.sourceId,
+            bidNum: bidFromBuffer.bidNum,
             time: device.getHandingTime(),
             handlingTime: device.getHandingTime(),
         });
