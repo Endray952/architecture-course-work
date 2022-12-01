@@ -18,7 +18,7 @@ const BufferChart = observer(({ yOffset, currentBuffer }) => {
                 // points={[0, yOffset, Store.systemTime * 100, yOffset]}
                 points={[0, yOffset, Store.timeLineLength, yOffset]}
                 stroke={'#281c6e'}
-                strokeWidth={5}
+                strokeWidth={2}
             />
             {/* <Text
                 key={uuid()}

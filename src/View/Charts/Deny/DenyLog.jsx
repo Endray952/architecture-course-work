@@ -17,7 +17,7 @@ const DenyLog = observer(({ yOffset }) => {
                 key={uuid()}
                 points={[0, yOffset, Store.timeLineLength, yOffset]}
                 stroke={'rgba(132, 0, 0, 1)'}
-                strokeWidth={5}
+                strokeWidth={2}
             />
             {/* <Text text={'ОТК'} x={0 - Store.stageDrag.x} y={yOffset - 30} /> */}
             <ChartText text={'ОТК'} yOffset={yOffset - 30} />

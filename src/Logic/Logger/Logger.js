@@ -235,5 +235,8 @@ export class Logger {
         for (let index = 0; index < devicesNum; index++) {
             this.deviceLogView.set(index + 1, []);
         }
+        for (let index = 0; index < devicesNum; index++) {
+            this.deviceLog.set(index + 1, 0);
+        }
     }
 }

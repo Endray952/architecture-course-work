@@ -70,7 +70,7 @@ const Charts = observer(() => {
                             Store.systemTime * 100,
                             topYOffsetDeny,
                         ]}
-                        stroke={'rgba(132, 123, 123, 0.7)'}
+                        stroke={'rgba(0, 0, 0, 0.5)'}
                         strokeWidth={2}
                     />
                     <Line

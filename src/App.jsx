@@ -6,17 +6,18 @@ import { System } from './Logic/System';
 import AutoRegime from './View/AutoRegime/AutoRegime';
 import BufferedBids from './View/BufferedBids';
 import Calendar from './View/Calendar';
-import Charts from './View/Charts/Charts';
 import StepMode from './View/Charts/StepMode';
 import Devices from './View/Devices';
 import FreeBuffers from './View/FreeBuffers';
 import Logger from './View/Logger/Logger';
-
 import Sources from './View/Sources';
 import StartOptions from './View/StartView/StartOptions';
 
 //const system = new System(null, 10, 5, 3, 5);
 
+const Container = styled.div`
+    background-color: rgba(151, 150, 150, 0.966);
+`;
 const LogContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -73,8 +74,10 @@ const App = observer(() => {
     return (
         <>
             <StartOptions setStart={setStart} start={start} />
+
             <StepMode systemRef={systemRef} />
             <AutoRegime />
+
             {/* <LogContainer>
                 <div>
                     <Calendar />

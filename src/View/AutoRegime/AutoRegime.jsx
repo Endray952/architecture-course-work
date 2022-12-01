@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import styled from 'styled-components';
 import Store from '../../Logic/Store';
 import { Table } from './Table';
 
@@ -15,6 +16,25 @@ const sourcesColumns = [
 ];
 
 const devicesColumns = ['Номер прибора', 'Коэффициент использования'];
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+`;
+
+const StyledP = styled.p`
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+`;
+
+const TableContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+`;
 
 const AutoRegime = observer(() => {
     if (Store.initialParametrs.mode !== 'auto') {
@@ -53,7 +73,28 @@ const AutoRegime = observer(() => {
             ),
         ];
     });
-    return <Table columns={sourcesColumns} rows={rows} cellWidth={150} />;
+
+    const devicesRows = Store.logger.deviceLog.map((logInfo) => {
+        return [
+            logInfo.deviceId,
+            (logInfo.usedTime / Store.systemTime || 0).toFixed(3),
+        ];
+    });
+    devicesRows.sort((item_1, item_2) => item_1[0] - item_2[0]);
+    return (
+        <Container>
+            <StyledP>Характеристики источников ВС</StyledP>
+            <Table columns={sourcesColumns} rows={rows} cellWidth={150} />
+            <TableContainer>
+                <StyledP>Характеристики приборов ВС</StyledP>
+                <Table
+                    columns={devicesColumns}
+                    rows={devicesRows}
+                    cellWidth={150}
+                />
+            </TableContainer>
+        </Container>
+    );
 });
 
 export default AutoRegime;

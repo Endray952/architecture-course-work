@@ -12,6 +12,20 @@ const StepMode = observer(({ systemRef }) => {
     ) {
         return null;
     }
+
+    const currentEvent =
+        Store?.currentEvent &&
+        (Store.currentEvent.type === 'new_bid'
+            ? `новая заявка И${Store.currentEvent.id}.${Store.currentEvent.bidNum}`
+            : `завершение обслуживания П${Store.currentEvent.deviceId} И${Store.currentEvent.sourceId}.${Store.currentEvent.bidNum}`);
+
+    const nextEventLog =
+        Store?.calendar && Store?.calendar[Store?.calendar?.length - 1];
+    const nextEvent =
+        nextEventLog &&
+        (nextEventLog.type === 'new_bid'
+            ? `новая заявка И${nextEventLog.id}.${nextEventLog.bidNum}`
+            : `завершение обслуживания П${nextEventLog.deviceId} И${nextEventLog.sourceId}.${nextEventLog.bidNum}`);
     return (
         <>
             <button
@@ -30,7 +44,13 @@ const StepMode = observer(({ systemRef }) => {
                 Store.bidsProduced
             }, Заявок сгенерировано: ${
                 Store.bidsGenerated
-            }, Заявок отклонено: ${Store.bidsRefused}`}</div>
+            }, Заявок отклонено: ${
+                Store.bidsRefused
+            }, Текущее особое событие: ${
+                currentEvent || ''
+            }, Следующее особое событие: ${
+                nextEvent || 'Завершение моделирования'
+            }`}</div>
             <Charts />
         </>
     );

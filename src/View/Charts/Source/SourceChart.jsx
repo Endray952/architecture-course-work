@@ -20,7 +20,7 @@ const SourceChart = observer(({ yOffset, currentSource }) => {
                 // points={[0, yOffset, Store.systemTime * 100, yOffset]}
                 points={[0, yOffset, Store.timeLineLength, yOffset]}
                 stroke={'#000000'}
-                strokeWidth={5}
+                strokeWidth={2}
             />
             {/* <Text
                 ref={textRef}

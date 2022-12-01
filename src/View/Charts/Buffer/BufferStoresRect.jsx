@@ -20,6 +20,7 @@ const BufferStoresRect = observer(({ currentBuffer, yOffset }) => {
                     x={logInfo.startTime * 100 + 10}
                     y={yOffset - 15}
                 />
+
                 <Rect
                     x={logInfo.startTime * 100}
                     y={yOffset - 20}
