@@ -10,7 +10,7 @@ const ColumnPair = styled.div`
     display: flex;
     flex-direction: column;
     * {
-        width: 200px;
+        width: 300px;
     }
 `;
 

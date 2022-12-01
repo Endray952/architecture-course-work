@@ -14,6 +14,11 @@ const ColumnPair = styled.div`
     flex-direction: column;
 `;
 
+const Container = styled.div`
+    margin-top: 10px;
+    margin-left: 10px;
+`;
+
 const StartOptions = observer(({ start, setStart }) => {
     const [errorText, setErrorText] = useState('');
     const handleStart = () => {
@@ -28,14 +33,14 @@ const StartOptions = observer(({ start, setStart }) => {
         }
     };
     return (
-        <>
+        <Container>
             <StartOptionsContainer>
                 <Inputs />
                 <RadioButtons />
                 <button onClick={handleStart}>Начать</button>
             </StartOptionsContainer>
             {errorText && <p>{errorText}</p>}
-        </>
+        </Container>
     );
 });
 
