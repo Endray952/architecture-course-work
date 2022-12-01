@@ -33,6 +33,17 @@ const App = observer(() => {
                 current time {Store.systemTime} bidsProduced{' '}
                 {Store.bidsProduced}
             </div>
+
+            <button
+                onClick={() => {
+                    systemRef.current?.handleNextEvent();
+                    Store.update(systemRef.current);
+                }}
+            >
+                next step
+            </button>
+            <div>{`current time:  ${Store.systemTime.toFixed(3)}`}</div>
+            <Charts />
             <LogContainer>
                 <div>
                     <Calendar />
@@ -45,15 +56,6 @@ const App = observer(() => {
                     <Logger />
                 </div>
             </LogContainer>
-            <button
-                onClick={() => {
-                    systemRef.current?.handleNextEvent();
-                    Store.update(systemRef.current);
-                }}
-            >
-                next step
-            </button>
-            <Charts />
         </>
     );
 });

@@ -19,7 +19,11 @@ export class System {
     mode;
     currentEvent;
     stopModulatingFlag = false;
+
+    systemParams = { sourcesNum: 0, devicesNum: 0, buffersNum: 0 };
     constructor(mode, totatlBidsNum, sourcesNum, devicesNum, buffersNum) {
+        this.systemParams = { sourcesNum, devicesNum, buffersNum };
+
         this.totalBidsNum = totatlBidsNum;
         this.calendar = new Calendar();
         this.deviceManager = new DeviceManager(devicesNum);
@@ -27,6 +31,7 @@ export class System {
         this.bufferManager = new BufferManager(buffersNum);
         this.logger = new Logger();
         this.setInitialBids();
+        this.logger.initializateViewLogs(devicesNum, buffersNum);
     }
 
     handleNextEvent() {

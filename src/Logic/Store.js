@@ -17,11 +17,16 @@ class Store {
         bufferViewLog: [],
         denyViewLog: [],
     };
+
+    systemParams = { sourcesNum: 0, devicesNum: 0, buffersNum: 0 };
     constructor() {
         makeAutoObservable(this);
         // this.system = system;
     }
     update(system) {
+        //this.systemParams = system;
+        this.systemParams = system.systemParams;
+
         this.systemTime = system.calendar.getCurrentTime();
         this.sources = [...system.sourceManager.getSources()];
         this.devices = [...system.deviceManager.getDevices()];
@@ -43,7 +48,7 @@ class Store {
         this.bidsProduced = system.producedBidsNum;
 
         this.viewLogger = system.logger.getViewLogger();
-        console.log(this.viewLogger);
+        //console.log(this.viewLogger);
     }
 }
 export default new Store();

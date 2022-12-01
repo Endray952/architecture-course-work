@@ -2,16 +2,17 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Rect, Text } from 'react-konva';
 import { v4 as uuid } from 'uuid';
+import Store from '../../../Logic/Store';
 
-const SourceBids = observer(({ currentSource, yOffset }) => {
+const DenyMarks = observer(({ yOffset }) => {
     //console.log(JSON.stringify(currentSource.value));
-    return currentSource.value.map((logInfo) => {
+    return Store.viewLogger.denyViewLog.map((logInfo) => {
         return (
             <>
                 <Text
-                    text={`${logInfo.bidNum}`}
-                    x={logInfo.time * 100 + 10}
-                    y={yOffset - 15}
+                    text={`${logInfo.sourceId}.${logInfo.bidNum}`}
+                    x={logInfo.time * 100 - 10}
+                    y={yOffset - 25}
                 />
                 <Rect
                     x={logInfo.time * 100 - 2.5}
@@ -27,4 +28,4 @@ const SourceBids = observer(({ currentSource, yOffset }) => {
     });
 });
 
-export default SourceBids;
+export default DenyMarks;

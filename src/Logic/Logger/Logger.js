@@ -106,7 +106,7 @@ export class Logger {
             this.bufferViewLog.set(bufferId, []);
         }
         const currentBufLog = this.bufferViewLog.get(bufferId);
-        currentBufLog.push({ sourceId: sourceId, bidNum, StartTime: time });
+        currentBufLog.push({ sourceId: sourceId, bidNum, startTime: time });
         this.bufferViewLog.set(bufferId, currentBufLog);
     }
 
@@ -165,5 +165,15 @@ export class Logger {
             ),
             denyViewLog: this.denyViewLog,
         };
+    }
+
+    initializateViewLogs(devicesNum, buffersNum) {
+        for (let index = 0; index < buffersNum; index++) {
+            this.bufferViewLog.set(index + 1, []);
+        }
+
+        for (let index = 0; index < devicesNum; index++) {
+            this.deviceLogView.set(index + 1, []);
+        }
     }
 }

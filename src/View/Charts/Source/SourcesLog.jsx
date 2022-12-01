@@ -1,19 +1,21 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 
 import { v4 as uuid } from 'uuid';
 import Store from '../../../Logic/Store';
-import SourceChart from './Source';
+import SourceChart from './SourceChart';
 
-const SourcesLog = () => {
+const SourcesLog = observer(({ topYOffset, everyItemYOffset }) => {
+    console.log(Store.viewLogger.sourceBidsLogView);
     return Store.viewLogger.sourceBidsLogView.map((value, index) => {
         return (
             <SourceChart
                 key={uuid()}
-                yOffset={50 + index * 50}
+                yOffset={topYOffset + index * everyItemYOffset}
                 currentSource={value}
             />
         );
     });
-};
+});
 
 export default SourcesLog;
