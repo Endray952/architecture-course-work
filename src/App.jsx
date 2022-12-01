@@ -31,7 +31,10 @@ const App = observer(() => {
     const [start, setStart] = useState(0);
 
     useEffect(() => {
-        if (Store.initialParametrs.started) {
+        if (!Store.initialParametrs.started) {
+            return;
+        }
+        if (Store.initialParametrs.mode === 'step') {
             console.log(Store.initialParametrs);
             systemRef.current = new System(
                 Store.initialParametrs.bidsNum,
@@ -40,8 +43,23 @@ const App = observer(() => {
                 Store.initialParametrs.buffersNum
             );
             Store.update(systemRef.current);
+        } else if (Store.initialParametrs.mode === 'auto') {
+            systemRef.current = new System(
+                Store.initialParametrs.bidsNum,
+                Store.initialParametrs.sourcesNum,
+                Store.initialParametrs.devicesNum,
+                Store.initialParametrs.buffersNum
+            );
+            Store.update(systemRef.current);
+            while (!systemRef.current?.endModulatingFlag) {
+                console.log(systemRef.current);
+                systemRef.current?.handleNextEvent();
+            }
+            systemRef.current?.handleNextEvent();
+            Store.update(systemRef.current);
         }
-        console.log('useEffect');
+
+        //console.log('useEffect');
         //systemRef.current.calendar.getAllEvents();
     }, [start]);
 

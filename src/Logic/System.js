@@ -21,6 +21,8 @@ export class System {
     stopModulatingFlag = false;
     endModulatingFlag = false;
 
+    denyedBids = 0;
+
     generatedBidsNum = 0;
     totalGenerateBidsNum;
     systemParams = { sourcesNum: 0, devicesNum: 0, buffersNum: 0 };
@@ -90,6 +92,7 @@ export class System {
         }
 
         if (this.bufferManager.isBufferFull()) {
+            this.denyedBids++;
             const denyedBidAndBufferId = this.bufferManager.handleDeny(
                 event.id,
                 event.bidNum

@@ -21,21 +21,24 @@ class Store {
     systemParams = { sourcesNum: 0, devicesNum: 0, buffersNum: 0 };
 
     bidsGenerated = 0;
-    bidsProduced = 0;
+
     timeLineLength = 0;
     endModulating = false;
 
     initialParametrs = {
         started: false,
         mode: 'step',
-        sourcesNum: 0,
-        buffersNum: 0,
-        devicesNum: 0,
-        bidsNum: 0,
-        lambda: 1,
-        produceTimeInterval: { start: 0, end: 10 },
+        sourcesNum: 5,
+        buffersNum: 5,
+        devicesNum: 5,
+        bidsNum: 10,
+        lambda: 0.25,
+        produceTimeInterval: { start: 3, end: 5 },
     };
 
+    stageDrag = { x: 0, y: 0 };
+
+    bidsRefused = 0;
     constructor() {
         makeAutoObservable(this);
         // this.system = system;
@@ -68,14 +71,19 @@ class Store {
         //console.log(this.viewLogger);
         //console.log(JSON.stringify(this.calendar));
 
+        // this.timeLineLength =
+        //     this.calendar[0]?.time * 100 || this.timeLineLength;
+
         this.timeLineLength =
-            this.calendar[0]?.time * 100 || this.timeLineLength;
+            this.calendar[0]?.time * 100 || this.systemTime * 100;
 
         this.endModulating = system.endModulatingFlag;
         // console.log(this.bidsProduced, this.systemTime);
         this.bidsGenerated = system.generatedBidsNum;
 
         this.bidsProduced = system.producedBidsNum;
+
+        this.bidsRefused = system.denyedBids || 0;
     }
 }
 export default new Store();

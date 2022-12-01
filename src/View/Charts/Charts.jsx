@@ -9,6 +9,7 @@ import SourcesLog from './Source/SourcesLog';
 import DevicesLog from './Device/DevicesLog';
 import BuffersLog from './Buffer/BuffersLog';
 import DenyLog from './Deny/DenyLog';
+import { action } from 'mobx';
 
 const ChartContainer = styled.div`
     width: fit-content;
@@ -33,7 +34,18 @@ const Charts = observer(() => {
         topYOffsetSource;
     return (
         <ChartContainer>
-            <Stage width={window.innerWidth - 30} height={800} draggable>
+            <Stage
+                onDragEnd={action((e) => {
+                    Store.stageDrag = {
+                        x: e.target.attrs.x,
+                        y: e.target.attrs.y,
+                    };
+                    //console.log(Store.stageDrag);
+                })}
+                width={window.innerWidth - 30}
+                height={800}
+                draggable
+            >
                 <Layer>
                     <SourcesLog
                         topYOffset={topYOffsetSource}
@@ -56,7 +68,7 @@ const Charts = observer(() => {
                             Store.systemTime * 100,
                             0,
                             Store.systemTime * 100,
-                            800,
+                            topYOffsetDeny,
                         ]}
                         stroke={'rgba(132, 123, 123, 0.7)'}
                         strokeWidth={2}
@@ -71,7 +83,7 @@ const Charts = observer(() => {
                             0,
                             Store.calendar[Store.calendar.length - 1]?.time *
                                 100,
-                            800,
+                            topYOffsetDeny + 10,
                         ]}
                         stroke={'rgba(107, 218, 63, 0.7)'}
                         dash={[25, 10]}

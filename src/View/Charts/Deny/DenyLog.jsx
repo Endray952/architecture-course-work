@@ -4,6 +4,7 @@ import { Line, Text } from 'react-konva';
 
 import { v4 as uuid } from 'uuid';
 import Store from '../../../Logic/Store';
+import ChartText from '../../ChartText';
 import DenyMarks from './DenyMarks';
 
 const DenyLog = observer(({ yOffset }) => {
@@ -18,7 +19,8 @@ const DenyLog = observer(({ yOffset }) => {
                 stroke={'rgba(132, 0, 0, 1)'}
                 strokeWidth={5}
             />
-            <Text text={'Denied'} x={0} y={yOffset - 30} />
+            {/* <Text text={'ОТК'} x={0 - Store.stageDrag.x} y={yOffset - 30} /> */}
+            <ChartText text={'ОТК'} yOffset={yOffset - 30} />
         </>
     );
 });

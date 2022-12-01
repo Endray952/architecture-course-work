@@ -9,6 +9,9 @@ const StartOptionsContainer = styled.div`
 const ColumnPair = styled.div`
     display: flex;
     flex-direction: column;
+    * {
+        width: 200px;
+    }
 `;
 
 const Inputs = () => {
@@ -16,14 +19,14 @@ const Inputs = () => {
         <StartOptionsContainer>
             <ColumnPair>
                 <input
-                    placeholder='Количество источников'
+                    placeholder='Количество источников: 5'
                     type='number'
                     onChange={(e) => {
                         Store.initialParametrs.sourcesNum = +e.target.value;
                     }}
                 />
                 <input
-                    placeholder='Количество приборов'
+                    placeholder='Количество приборов: 5'
                     type='number'
                     onChange={(e) => {
                         Store.initialParametrs.devicesNum = +e.target.value;
@@ -32,14 +35,14 @@ const Inputs = () => {
             </ColumnPair>
             <ColumnPair>
                 <input
-                    placeholder='Количество буферов'
+                    placeholder='Количество буферов: 5'
                     type='number'
                     onChange={(e) => {
                         Store.initialParametrs.buffersNum = +e.target.value;
                     }}
                 />
                 <input
-                    placeholder='Количество заявок'
+                    placeholder='Количество заявок: 10'
                     type='number'
                     onChange={(e) => {
                         Store.initialParametrs.bidsNum = +e.target.value;
@@ -48,7 +51,7 @@ const Inputs = () => {
             </ColumnPair>
             <ColumnPair>
                 <input
-                    placeholder='Параметр лямюда'
+                    placeholder='Параметр лямюда: 0.25'
                     type='number'
                     onChange={(e) => {
                         Store.initialParametrs.lambda = +e.target.value;
@@ -56,7 +59,7 @@ const Inputs = () => {
                 />
                 <div>
                     <input
-                        placeholder='время обработки прибора до'
+                        placeholder='время обр П от: 3'
                         type='number'
                         onChange={(e) => {
                             Store.initialParametrs.produceTimeInterval.start =
@@ -64,7 +67,7 @@ const Inputs = () => {
                         }}
                     />
                     <input
-                        placeholder='от'
+                        placeholder='до: 5'
                         type='number'
                         onChange={(e) => {
                             Store.initialParametrs.produceTimeInterval.end =

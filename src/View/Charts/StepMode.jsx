@@ -2,7 +2,7 @@ import React from 'react';
 import Store from '../../Logic/Store';
 import Charts from './Charts';
 import { v4 as uuid } from 'uuid';
-import styled from 'styled-components';
+
 import { observer } from 'mobx-react-lite';
 
 const StepMode = observer(({ systemRef }) => {
@@ -18,6 +18,7 @@ const StepMode = observer(({ systemRef }) => {
                 onClick={() => {
                     systemRef.current?.handleNextEvent();
                     Store.update(systemRef.current);
+                    console.log(JSON.stringify(Store.logger.sourceLog));
                 }}
                 disabled={Store.endModulating}
             >
@@ -27,7 +28,9 @@ const StepMode = observer(({ systemRef }) => {
                 3
             )},  Заявок обработано:  ${
                 Store.bidsProduced
-            }, Заявок сгенерировано: ${Store.bidsGenerated}`}</div>
+            }, Заявок сгенерировано: ${
+                Store.bidsGenerated
+            }, Заявок отклонено: ${Store.bidsRefused}`}</div>
             <Charts />
         </>
     );

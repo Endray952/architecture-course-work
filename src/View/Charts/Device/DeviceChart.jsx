@@ -3,12 +3,13 @@ import React from 'react';
 import { Line, Text } from 'react-konva';
 import { v4 as uuid } from 'uuid';
 import Store from '../../../Logic/Store';
+import ChartText from '../../ChartText';
 import DeviceProduceRect from './DeviceProduceRect';
 
 const DeviceChart = observer(({ yOffset, currentDevice }) => {
     //console.log(JSON.stringify(currentDevice));
     if (!currentDevice) return null;
-    const text = `Device Id: ${currentDevice.deviceId}`;
+    const text = `П${currentDevice.deviceId}`;
     return (
         <>
             <DeviceProduceRect
@@ -22,17 +23,13 @@ const DeviceChart = observer(({ yOffset, currentDevice }) => {
                 stroke={'rgba(132, 0, 0, 1)'}
                 strokeWidth={5}
             />
-            <Text
-                // width={textWidth}
-                // height={textHeight}
-                // ref={textRef}
-                // fontSize={RULER_FONT_SIZE}
-                // align={'center'}
-                // verticalAlign={'middle'}
+            {/* <Text
+                
                 text={text}
-                x={0}
+                x={0 - Store.stageDrag.x}
                 y={yOffset - 30}
-            />
+            /> */}
+            <ChartText text={text} yOffset={yOffset - 30} />
         </>
     );
 });
