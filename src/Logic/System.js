@@ -48,7 +48,9 @@ export class System {
             if (++this.producedBidsNum === this.totalBidsNum) {
                 this.stopModulatingFlag = true;
             }
+            //if (nextEvent.type !== NEW_BID) {
             this.handleFreeDevice(nextEvent);
+            // }
         }
     }
 
@@ -85,7 +87,7 @@ export class System {
                 event.id,
                 event.bidNum
             );
-            console.log('buffer full', denyedBidAndBufferId);
+            //console.log('buffer full', denyedBidAndBufferId);
             if (
                 denyedBidAndBufferId.sourceId === event.id &&
                 denyedBidAndBufferId.bidNum === event.bidNum
@@ -141,6 +143,17 @@ export class System {
         const bidFromBuffer = this.bufferManager.getNextBid();
 
         const device = this.deviceManager.getDeviceToProduce();
+
+        if (!device) {
+            //debugger;
+            console.log(
+                'device undefined',
+                device,
+                'eventInfo',
+                nextEvent.deviceId
+            );
+        }
+
         this.logger.getBidFromBuffer(
             bidFromBuffer.sourceId,
             this.calendar.getCurrentTime(),

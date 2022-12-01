@@ -53,7 +53,8 @@ class Store {
         //console.log(this.viewLogger);
         //console.log(JSON.stringify(this.calendar));
 
-        this.timeLineLength = this.calendar[0].time * 100;
+        this.timeLineLength =
+            this.calendar[0]?.time * 100 || this.timeLineLength;
     }
 }
 export default new Store();

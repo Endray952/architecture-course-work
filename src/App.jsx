@@ -22,7 +22,7 @@ const LogContainer = styled.div`
 const App = observer(() => {
     let systemRef = useRef();
     useEffect(() => {
-        systemRef.current = new System(null, 50, 5, 3, 3);
+        systemRef.current = new System(null, 5, 5, 3, 3);
         Store.update(systemRef.current);
         //systemRef.current.calendar.getAllEvents();
     }, []);

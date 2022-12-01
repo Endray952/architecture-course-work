@@ -18,7 +18,7 @@ const DeviceChart = observer(({ yOffset, currentDevice }) => {
             <Line
                 key={uuid()}
                 // points={[0, yOffset, Store.systemTime * 100, yOffset]}
-                points={[0, yOffset, 2000, yOffset]}
+                points={[0, yOffset, Store.timeLineLength, yOffset]}
                 stroke={'rgba(132, 0, 0, 1)'}
                 strokeWidth={5}
             />
