@@ -74,12 +74,13 @@ export class Logger {
         //auto
         const currentSourceLog = this.sourcesLog.get(sourceIdOld);
         currentSourceLog.numRefused++;
-        if (
-            currentSourceLog.startTimeInBuffer.length >
-            currentSourceLog.endTimeInBuffer.length
-        ) {
-            currentSourceLog.endTimeInBuffer.push(time);
-        }
+        // if (
+        //     currentSourceLog.startTimeInBuffer.length >
+        //     currentSourceLog.endTimeInBuffer.length
+        // ) {
+        //     currentSourceLog.endTimeInBuffer.push(time);
+        // }
+        currentSourceLog.endTimeInBuffer.push(time);
         this.sourcesLog.set(sourceIdOld, currentSourceLog);
 
         //view
@@ -91,6 +92,10 @@ export class Logger {
         //     return buf;
         // });
         // this.bufferViewLog.set(bufferId, currentBuffer);
+
+        const nextSourceLog = this.sourcesLog.get(sourceIdNew);
+        nextSourceLog.startTimeInBuffer.push(time);
+        this.sourcesLog.set(sourceIdOld, currentSourceLog);
 
         //SEt end time for old bid in buffer
         const currentBufLog = this.bufferViewLog.get(bufferId);

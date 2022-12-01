@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Store from './Logic/Store';
 import { System } from './Logic/System';
+import AutoRegime from './View/AutoRegime/AutoRegime';
 import BufferedBids from './View/BufferedBids';
 import Calendar from './View/Calendar';
 import Charts from './View/Charts/Charts';
@@ -67,8 +68,8 @@ const App = observer(() => {
         <>
             <StartOptions setStart={setStart} start={start} />
             <StepMode systemRef={systemRef} />
-
-            {/* <LogContainer>
+            <AutoRegime />
+            <LogContainer>
                 <div>
                     <Calendar />
                     <Sources />
@@ -79,7 +80,7 @@ const App = observer(() => {
                 <div>
                     <Logger />
                 </div>
-            </LogContainer> */}
+            </LogContainer>
         </>
     );
 });
